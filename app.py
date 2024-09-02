@@ -31,7 +31,18 @@ def home():
         return redirect(url_for("home"))
     else:
         email = Email.query.all()
-        return render_template("index.html", email=email) 
+        return render_template("index.html", email=email)
+
+
+@app.route("/remove-email")
+def remove_email():
+    id = request.args.get('id-rem')
+    email_user = Email.query.filter(Email.id == id).first_or_404()
+
+    db.session.delete(email_user)
+    db.session.commit()
+    return redirect(url_for('home'))
+    
 
 
 with app.app_context():

@@ -29,14 +29,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        background-color: #1e1e1e;
+        background-color: #3f3f3f;
         padding: 0 15px;
         border-radius: 10px;
         border: 1px solid rgb(63, 63, 63);
       }
+
       .messageBox:focus-within {
         border: 1px solid #606060;
       }
+
       .fileUploadWrapper {
         width: fit-content;
         height: 100%;
@@ -49,6 +51,7 @@
       #file {
         display: none;
       }
+
       .fileUploadWrapper label {
         cursor: pointer;
         width: fit-content;
@@ -58,26 +61,33 @@
         justify-content: center;
         position: relative;
       }
+
       .fileUploadWrapper label svg {
         height: 18px;
       }
+
       .fileUploadWrapper label svg path {
         transition: all 0.3s;
       }
+
       .fileUploadWrapper label svg circle {
         transition: all 0.3s;
       }
+
       .fileUploadWrapper label:hover svg path {
         stroke: #fff;
       }
+
       .fileUploadWrapper label:hover svg circle {
         stroke: #fff;
         fill: #3c3c3c;
       }
+
       .fileUploadWrapper label:hover .tooltip {
         display: block;
         opacity: 1;
       }
+
       .tooltip {
         position: absolute;
         top: -40px;
@@ -86,13 +96,14 @@
         color: white;
         font-size: 10px;
         text-wrap: nowrap;
-        background-color: #000;
+        background-color: #ffffff;
         padding: 6px 10px;
         border: 1px solid #3c3c3c;
         border-radius: 5px;
         box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.596);
         transition: all 0.3s;
       }
+
       #messageInput {
         width: 200px;
         height: 100%;
@@ -102,6 +113,7 @@
         padding-left: 10px;
         color: #f5f5f5;
       }
+
       #messageInput:focus ~ #sendButton svg path,
       #messageInput:valid ~ #sendButton svg path {
         fill: #3c3c3c;
@@ -120,40 +132,97 @@
         cursor: pointer;
         transition: all 0.3s;
       }
+
       #sendButton svg {
         height: 18px;
         transition: all 0.3s;
       }
+
       #sendButton svg path {
         transition: all 0.3s;
       }
+
       #sendButton:hover svg path {
         fill: #3682f4;
         stroke: white;
+      }
+
+      .container > .form-sec{
+        margin-top: 40px;
+        margin-bottom: 15px;
+
+        display: flex;
+        justify-content: center;
+      }
+      .container > h1{
+        display: flex;
+        justify-content: center;
       }
     </style>
   </head>
 
   <body>
-    <form action="" method="post">
+    <section class="container">
+      <h1>Email Slicer</h1>
+      <div class="form-sec">
+        <form action="" method="post">
+          <!-- /* From Uiverse.io by mpody11 */  -->
+          <div class="messageBox">
+            <input
+              id="messageInput"
+              type="email"
+              placeholder="Email"
+              required
+              name="email"
+            />
+            <button id="sendButton" type="submit">
+              <svg
+                viewBox="0 0 664 663"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+                  fill="none"
+                ></path>
+                <path
+                  d="M646.293 331.888L17.7538 17.6187L155.245 331.888M646.293 331.888L17.753 646.157L155.245 331.888M646.293 331.888L318.735 330.228L155.245 331.888"
+                  stroke="#6c6c6c"
+                  stroke-width="33.67"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></path>
+              </svg>
+            </button>
+          </div>
 
-      <input class="email" type="email" name="email" />
-      <input type="submit" value="Click" />
-    </form>
+          <!-- <input class="email" type="email" name="email" />
+      <input type="submit" value="Click" /> -->
+        </form>
+      </div>
 
-    <table>
-      <tr>
-        <th>Username</th>
-        <th>Domain</th>
-        <th>Full Email</th>
-      </tr>
-      {% for e in email %}
-      <tr>
-        <td>{{e.username}}</td>
-        <td>{{e.domain}}</td>
-        <td>{{e.email}}</td>
-      </tr>
-      {% endfor %}
-    </table>
+        <table>
+          <tr>
+            <th>Username</th>
+            <th>Domain</th>
+            <th>Full Email</th>
+            <th>Delete Or Save</th>
+          </tr>
+          {% for e in email %}
+          <tr>
+            <td>{{e.username}}</td>
+            <td>{{e.domain}}</td>
+            <td>{{e.email}}</td>
+            <td>
+              <form action="/remove-email">
+                <input type="hidden" name="id-rem" value="{{ e.id }}" />
+                <input type="submit" value="-" />
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+
+    </section>
   </body>
 </html>
