@@ -16,9 +16,9 @@ db.init_app(app)
 def home():
     if request.method == "POST":
         email = request.form.get("email", None)
-        
-        username = email[:email.index('@')]
-        domain = email[email.index('@') + 1:]
+
+        username = email[: email.index("@")]
+        domain = email[email.index("@") + 1 :]
 
         email_user = Email(username=username, domain=domain, email=email)
 
@@ -36,13 +36,12 @@ def home():
 
 @app.route("/remove-email")
 def remove_email():
-    id = request.args.get('id-rem')
+    id = request.args.get("id-rem")
     email_user = Email.query.filter(Email.id == id).first_or_404()
 
     db.session.delete(email_user)
     db.session.commit()
-    return redirect(url_for('home'))
-    
+    return redirect(url_for("home"))
 
 
 with app.app_context():
